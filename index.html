@@ -1,79 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidate Ranks</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidate Ranks</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    #searchInput {
+      height: 30px;
+    }
+
+    .highlight {
+      background-color: yellow;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Candidate Ranks</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Application Number</th>
-                <th>Candidate Name</th>
-                <th>All India Rank</th>
-                <th>Marks</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody id="candidateTableBody">
-            <!-- Data will be inserted here -->
-        </tbody>
-    </table>
+  <div class="header"> 
+    <h1>Candidate Ranks </h1>
+    <h2>
+    Search : <input type="text" id="searchInput" placeholder="Search..." />
+      </h2>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Application Number</th>
+        <th>Candidate Name</th>
+        <th>All India Rank</th>
+        <th>Marks</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody id="candidateTableBody">
+      <!-- Data will be inserted here -->
+    </tbody>
+  </table>
 
-    <script>
-        fetch('https://raw.githubusercontent.com/code100x/neet-results-2024/gh-pages/scrape.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                const tableBody = document.getElementById('candidateTableBody');
-                const allData = [...data.total];
-                // const allData = [{"id":7996,"day":"2","month":"8","year":"2006","applicationNumber":"240411187209","candidateName":"BARAIYA RIDDHIBEN PRATAPBHAI","allIndiaRank":"1009742","marks":"193One Hundred Ninety Three Only","createdAt":"2024-06-11T04:34:19.309Z","updatedAt":"2024-06-11T04:34:19.309Z"},{"id":7997,"day":"1","month":"4","year":"2007","applicationNumber":"240411179822","candidateName":"POREDDY PAVAN KUMAR REDDY","allIndiaRank":"1","marks":"720Seven Hundred Twenty Only","createdAt":"2024-06-11T04:34:20.604Z","updatedAt":"2024-06-11T04:34:20.604Z"},{"id":7998,"day":"4","month":"4","year":"2007","applicationNumber":"240411187208","candidateName":"RITHESH S","allIndiaRank":"504860","marks":"343Three Hundred Forty Three Only","createdAt":"2024-06-11T04:34:21.261Z","updatedAt":"2024-06-11T04:34:21.261Z"},{"id":7999,"day":"20","month":"3","year":"2006","applicationNumber":"240411179851","candidateName":"NIRMAL RAO T","allIndiaRank":"1176006","marks":"162One Hundred Sixty Two Only","createdAt":"2024-06-11T04:34:22.184Z","updatedAt":"2024-06-11T04:34:22.184Z"},{"id":8000,"day":"27","month":"6","year":"2005","applicationNumber":"240411179843","candidateName":"SANIKA ANIRUDDHA PADALE","allIndiaRank":"1136098","marks":"169One Hundred Sixty Nine Only","createdAt":"2024-06-11T04:34:25.613Z","updatedAt":"2024-06-11T04:34:25.613Z"},{"id":8001,"day":"13","month":"2","year":"2007","applicationNumber":"240411187197","candidateName":"SHRISHTI JOSHI","allIndiaRank":"1644605","marks":"99Ninety Nine Only","createdAt":"2024-06-11T04:34:25.918Z","updatedAt":"2024-06-11T04:34:25.918Z"},{"id":8002,"day":"9","month":"7","year":"2006","applicationNumber":"240411179831","candidateName":"PRUTHVIRAJ NAVNATH WAGHMARE","allIndiaRank":"1199995","marks":"158One Hundred Fifty Eight Only","createdAt":"2024-06-11T04:34:26.816Z","updatedAt":"2024-06-11T04:34:26.816Z"},{"id":8003,"day":"8","month":"3","year":"2006","applicationNumber":"240411187202","candidateName":"SINCHANA MAIDUR","allIndiaRank":"572614","marks":"317Three Hundred Seventeen Only","createdAt":"2024-06-11T04:34:27.268Z","updatedAt":"2024-06-11T04:34:27.268Z"},{"id":8004,"day":"10","month":"10","year":"2006","applicationNumber":"240411179832","candidateName":"SINGO MURMU","allIndiaRank":"1585873","marks":"105One Hundred Five Only","createdAt":"2024-06-11T04:34:30.574Z","updatedAt":"2024-06-11T04:34:30.574Z"},]
+  <script>
+    fetch('https://raw.githubusercontent.com/code100x/neet-results-2024/gh-pages/scrape.json')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const tableBody = document.getElementById('candidateTableBody');
+        const allData = [...data.total];
+        // const allData = [{"id": 7996, "day": "2", "month": "8", "year": "2006", "applicationNumber": "240411187209", "candidateName": "BARAIYA RIDDHIBEN PRATAPBHAI", "allIndiaRank": "1009742", "marks": "193One Hundred Ninety Three Only", "createdAt": "2024-06-11T04:34:19.309Z", "updatedAt": "2024-06-11T04:34:19.309Z"}, {"id": 7997, "day": "1", "month": "4", "year": "2007", "applicationNumber": "240411179822", "candidateName": "POREDDY PAVAN KUMAR REDDY", "allIndiaRank": "1", "marks": "720Seven Hundred Twenty Only", "createdAt": "2024-06-11T04:34:20.604Z", "updatedAt": "2024-06-11T04:34:20.604Z"}, {"id": 7998, "day": "4", "month": "4", "year": "2007", "applicationNumber": "240411187208", "candidateName": "RITHESH S", "allIndiaRank": "504860", "marks": "343Three Hundred Forty Three Only", "createdAt": "2024-06-11T04:34:21.261Z", "updatedAt": "2024-06-11T04:34:21.261Z"}, {"id": 7999, "day": "20", "month": "3", "year": "2006", "applicationNumber": "240411179851", "candidateName": "NIRMAL RAO T", "allIndiaRank": "1176006", "marks": "162One Hundred Sixty Two Only", "createdAt": "2024-06-11T04:34:22.184Z", "updatedAt": "2024-06-11T04:34:22.184Z"}, {"id": 8000, "day": "27", "month": "6", "year": "2005", "applicationNumber": "240411179843", "candidateName": "SANIKA ANIRUDDHA PADALE", "allIndiaRank": "1136098", "marks": "169One Hundred Sixty Nine Only", "createdAt": "2024-06-11T04:34:25.613Z", "updatedAt": "2024-06-11T04:34:25.613Z"}, {"id": 8001, "day": "13", "month": "2", "year": "2007", "applicationNumber": "240411187197", "candidateName": "SHRISHTI JOSHI", "allIndiaRank": "1644605", "marks": "99Ninety Nine Only", "createdAt": "2024-06-11T04:34:25.918Z", "updatedAt": "2024-06-11T04:34:25.918Z"}, {"id": 8002, "day": "9", "month": "7", "year": "2006", "applicationNumber": "240411179831", "candidateName": "PRUTHVIRAJ NAVNATH WAGHMARE", "allIndiaRank": "1199995", "marks": "158One Hundred Fifty Eight Only", "createdAt": "2024-06-11T04:34:26.816Z", "updatedAt": "2024-06-11T04:34:26.816Z"}, {"id": 8003, "day": "8", "month": "3", "year": "2006", "applicationNumber": "240411187202", "candidateName": "SINCHANA MAIDUR", "allIndiaRank": "572614", "marks": "317Three Hundred Seventeen Only", "createdAt": "2024-06-11T04:34:27.268Z", "updatedAt": "2024-06-11T04:34:27.268Z"}, {"id": 8004, "day": "10", "month": "10", "year": "2006", "applicationNumber": "240411179832", "candidateName": "SINGO MURMU", "allIndiaRank": "1585873", "marks": "105One Hundred Five Only", "createdAt": "2024-06-11T04:34:30.574Z", "updatedAt": "2024-06-11T04:34:30.574Z"},]
 
-                allData.sort((a, b) => {
-                    const rankA = (a.allIndiaRank === '----' || isNaN(parseInt(a.allIndiaRank))) ? 1000000000 : parseInt(a.allIndiaRank);
-                    const rankB =( b.allIndiaRank === '----' || isNaN(parseInt(b.allIndiaRank))) ? 1000000000 : parseInt(b.allIndiaRank);
-                    const result = parseInt(rankA) - parseInt(rankB);
-                    if (isNaN(result)) {
-                        return 0;
-                    }
-                    if (result > 0) {
-                        return 1;
-                    }
-                    return -1;
-                });
+        allData.sort((a, b) => {
+          const rankA = (a.allIndiaRank === '----' || isNaN(parseInt(a.allIndiaRank))) ? 1000000000 : parseInt(a.allIndiaRank);
+          const rankB = (b.allIndiaRank === '----' || isNaN(parseInt(b.allIndiaRank))) ? 1000000000 : parseInt(b.allIndiaRank);
+          const result = parseInt(rankA) - parseInt(rankB);
+          if (isNaN(result)) {
+            return 0;
+          }
+          if (result > 0) {
+            return 1;
+          }
+          return -1;
+        });
 
-                allData.forEach(candidate => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
+        allData.forEach(candidate => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
                         <td>${candidate.applicationNumber}</td>
                         <td>${candidate.candidateName}</td>
                         <td>${candidate.allIndiaRank}</td>
                         <td>${(candidate.marks || "").slice(0, 3)}</td>
                         <td>${candidate.day}/${candidate.month}/${candidate.year}</td>
                     `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    </script>
-</body>
-</html>
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
 
+    const searchInput = document.getElementById('searchInput');
+    const tableBody = document.getElementById('candidateTableBody');
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+
+      const rows = tableBody.querySelectorAll('tr');
+      rows.forEach(row => {
+        const textContent = row.textContent.toLowerCase();
+        const hasMatch = textContent.includes(searchTerm);
+
+        row.style.display = hasMatch ? '' : 'none';
+
+        row.querySelectorAll('td').forEach(cell => {
+          const cellText = cell.textContent;
+          cell.innerHTML = cellText.replace(new RegExp(searchTerm, 'gi'), '<span class="highlight">$&</span>');
+        });
+      });
+    });
+
+  </script>
+</body>
+
+</html>
