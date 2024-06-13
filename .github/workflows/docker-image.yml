@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build 100xdevs/neet
+      run: docker build Yashvanth343/neet
