@@ -1,12 +1,13 @@
 import db from "../db";
 import express from "express";
 import { sendRequest } from "../worker/sendRequest";
+import cors from "cors";
 const app = express();
 
 app.use(express.json());
 
 const PICKUP_BACKOFF_TIME_MS = 1000 * 60 * 60 * 2; // 2 hours
-
+app.use(cors())
 app.get("/next", async (req, res) => {
   
   const nextApplicationNumber = await db.$transaction(async (tx)=>{
