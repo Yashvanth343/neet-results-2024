@@ -58,7 +58,7 @@
         <th>Candidate Name</th>
         <th>All India Rank</th>
         <th>Marks</th>
-        <th>Date</th>
+        <th>DOB</th>
       </tr>
     </thead>
     <tbody id="candidateTableBody">
@@ -67,7 +67,7 @@
   </table>
 
   <script>
-    fetch('https://raw.githubusercontent.com/code100x/neet-results-2024/gh-pages/scrape.json')
+    fetch('https://raw.githubusercontent.com/Yashvanth343/neet-results-2024/gh-pages/scrape.json')
       .then(response => response.json())
       .then(data => {
         console.log(data);
