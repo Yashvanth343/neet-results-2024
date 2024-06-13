@@ -1,6 +1,6 @@
 import db from "../db";
 import express from "express";
-import { sendRequest } from "../worker/sendRequest";
+import { sendRequest } from "/worker/sendRequest";
 const app = express();
 
 app.use(express.json());
