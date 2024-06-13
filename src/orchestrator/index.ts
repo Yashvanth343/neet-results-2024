@@ -8,24 +8,35 @@ app.use(express.json());
 const PICKUP_BACKOFF_TIME_MS = 1000 * 60 * 60 * 2; // 2 hours
 
 app.get("/next", async (req, res) => {
-  const nextApplicationNumber = await db.applicationNumber.findFirst({
-    where: {
-       pickupTime: null
-    }
-  });
-  if (!nextApplicationNumber) {
+  
+  const nextApplicationNumber = await db.$transaction(async (tx)=>{
+
+      const txNextApplicationNumber = await tx.applicationNumber.findFirst({
+        where: {
+          pickupTime: null
+        }
+      });
+
+      if (!txNextApplicationNumber) {
+        return null;
+      }
+
+      await tx.applicationNumber.update({
+        where: {
+          id: txNextApplicationNumber?.id
+        },
+        data: {
+          pickupTime: new Date()
+        }
+      });
+
+      return txNextApplicationNumber;
+  })
+  
+  if(!nextApplicationNumber) {
     return res.status(404).json({ error: "No application found" });
   }
 
-  await db.applicationNumber.update({
-    where: {
-      id: nextApplicationNumber?.id
-    },
-    data: {
-      pickupTime: new Date()
-    }
-  });
-  
   res.json({
     applicationNumber: nextApplicationNumber?.applicationNumber
   });
