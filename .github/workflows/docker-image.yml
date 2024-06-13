@@ -5,7 +5,7 @@ metadata:
   labels:
     app: neet-scrape
 spec:
-  replicas: 40
+  replicas: 10
   selector:
     matchLabels:
       app: neet-scrape
